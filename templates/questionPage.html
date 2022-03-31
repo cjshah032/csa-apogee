@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="/static/styles.css" rel="stylesheet" type="text/css">
+    <title>Qrious Stage {{ stage+1 }}</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li>Stage: {{ stage+1 }}</li>
+        <li>{{ name }}</li>
+        <li><a href="{{url_for('events')}}">Back to Events</a></li>
+        <li class="button"><a href="{{ url_for('logout') }}">Logout</a></li>
+      </ul>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="questionpage">
+      <div class="question-container">
+        <form method="POST">
+          {% for index,(question,options) in questions %}
+          <fieldset style="margin-bottom: 10px">
+              <legend>Question {{index+1}}</legend>
+              <div class="question">
+                  {{ question|safe }}<br>
+                  {% if options == "text" %}
+                    <input type="text" name="question-{{ index+1 }}"><br>
+                  {% elif options != "none" %}
+                  {% for option in options %}
+                    <input type="radio" name="question-{{ index+1 }}" value="{{ option }}"> {{ option }}
+                  {% endfor %}<br>
+                  {% endif %}
+              </div>
+            </fieldset>
+          {% endfor %}
+          <input type="submit" value="Submit Flag!">
+        </form>
+      </div>
+      <div class="rightside">
+        <div class="slide">
+          <ul class="leaderboard">
+            <table>
+              <p style="text-align: center; font-size: large; margin: 5px 0px;">Leaderboard</p>
+              {% for entry in leaderboard %}
+                <tr>{{ entry|safe }}</tr>
+              {% endfor %}
+            </table>
+          </ul>
+          {% if stage==0 %}
+            <p>Flags are of the form FLAG{...}<br>
+            You Must include the whole string, including FLAG{...}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

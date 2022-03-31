@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="/static/styles.css" rel="stylesheet" type="text/css">
+    <title>Datageddon</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li>{{ name }}</li>
+        <li><a href="{{url_for('events')}}">Back to Events</a></li>
+        <li class="button"><a href="{{ url_for('logout') }}">Logout</a></li>
+      </ul>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="questionpage">
+      <div class="question-container">
+        <img style="display: block; margin-left:auto; margin-right: auto; max-width: 350px;" src="/static/datageddon.png">
+          <fieldset style="margin-bottom: 10px">
+            <legend style="font-size: large;">Instructions</legend>
+            <div class="datageddon">
+              This is a Data preprocessing contest. You are given raw data and shall submit 2 csv files (training set and test set).<br>
+              <ul>
+              <li>The target attribute is Cover_Type.</li>
+              <li>The file <a style="text-decoration: none; color: cornflowerblue;" href="https://docs.google.com/spreadsheets/d/1sOMgYbhYAQltsfZ1aRpDpVJUn_CkdkYCU1PV-V97WgQ/edit?usp=sharing">train.csv</a>
+                contains data with target value i.e. Cover_Type while <a style="text-decoration: none; color: cornflowerblue;" href="https://docs.google.com/spreadsheets/d/1tXTZUHul_3ZIk2Bu1WCSExF400tunGvrnychWqE9hxU/edit?usp=sharing">test.csv</a> has no target value.
+                <ul>
+                  <li>Shape of train.csv = (50000, 56)</li>
+                  <li>Shape of test.csv = (10000, 55)</li>
+                </ul>
+              </li>
+              <li><b>[IMPORTANT]</b> Participants have to implement the same pre-processing methods with both train.csv and test.csv
+              separately. Otherwise, accuracy would drop greatly.</li>
+              <li>The submitted test.csv must have the same number of rows in the same order as in the provided test.csv. Deletion of any
+              row or swapping would cost huge.</li>
+              <li>An ML model shall be trained on the preprocessed data that you have submitted and its performance on the test set
+              (which you have preprocessed with the training set and submitted) will be used to rank participants.</li>
+              <li>The model used for the classification will be <a style="text-decoration: none; color: cornflowerblue;" href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">SVC</a> (Support Vector Classifier).
+              <ul>
+                <li>Support Vectors Classifier tries to find the best
+                hyperplane to separate the different classes by
+                maximizing the distance between sample points and the
+                hyperplane.</li>
+                <li> Given model has kernel as ‘poly’ with degree 3 and
+                penalty C as 1.</li>
+                <li>[Tip] You are free to try this out on your own and see
+                how it performs on your data before making your
+                submission.</li>
+                </ul>
+              </li>
+              <li>F1 score is used with average as ‘weighted’ for evaluating
+              the accuracy of the model.<ul>
+              <li style="color:dodgerblue;">F1 = 2 * (precision * recall) / (precision + recall)</li>
+              </ul></li>
+              <li>Submitted files must not contain any missing or object type
+              value if any score of 0 will be awarded to the participant.</li>
+              </ul>
+                <b><a href="https://dare2compete.com/o/datageddon-apogee-bits-pilani-birla-institute-of-technology-science-bits-pilani-151049">Go to D2C</a> for Submissions</b>
+            </div>
+          </fieldset>
+      </div>
+    <div class="rightside">
+      <div class="slide"> 
+        <p id="datageddoncountdown"></p><br>
+      </div>
+    </div>
+    <script src="/static/countdown.js"></script>
+    </div>
+  </body>
+</html>

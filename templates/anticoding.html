@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="/static/styles.css" rel="stylesheet" type="text/css">
+    <title>Anti Coding</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li>{{ name }}</li>
+        <li><a href="{{url_for('events')}}">Back to Events</a></li>
+        <li class="button"><a href="{{ url_for('logout') }}">Logout</a></li>
+      </ul>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="questionpage">
+      <div class="question-container">
+        <img style="display: block; margin-left:auto; margin-right: auto; max-width: 350px;" src="/static/anticoding.png">
+        <form method="POST" enctype=multipart/form-data>
+          <fieldset style="margin-bottom: 10px">
+            <legend>Question 1</legend>
+            <div class="question">
+                <p>Write a program to Check if a Number is Prime such that:</p>
+                <p>Sum of ASCII Values of Characters in Source Code is MINIMUM<br>
+                (ALL whitespaces- newline, space, tab are IGNORED : Focus on code)</p>
+                <p>Only Input : N (>1)<br>
+                Only Output Line: YES/NO (ALL CAPS to STDOUT)</p>
+                <p>Scoring Criteria: 30 - (Difference in ASCII Score of Best Submission and Yours)/50<br>
+                Welcome to Relative Grading :(</p>
+                <input type="file" name="question-1" accept=".c">
+            </div>
+          </fieldset>
+
+          <fieldset style="margin-bottom: 10px">
+            <legend>Question 2</legend>
+            <div class="question">
+                <p>We promised a twist, and here it is:</p>
+                <p>Predict the source code from this executable: <a style="text-decoration: none;" href="/static/RunMe">RunMe</a> ($./RunMe N)</p>
+                <p>Only Input : N (>=0)<br>
+                Only Output Line: YES/NO (ALL CAPS to STDOUT)</p>
+                <p>Scoring Criteria: Binary (30/0) in a large input range<br>
+                (Don't try Brute Forcing Output, the checking range is very large)<br>
+                (Hint: There are more YES' than 0 and 1)</p>
+                <input type="file" name="question-2" accept=".c">
+            </div>
+          </fieldset>
+
+          <fieldset style="margin-bottom: 10px">
+            <legend>Question 3</legend>
+            <div class="question">
+                <p>Write a program to find Factorial of a number:<br>
+                Without using Semicolons in the Source Code</p>
+                <p>Only Input : N (>0)<br>
+                Only Output Line: N! (to STDOUT)<p>
+                <p>Scoring Criteria: 40 for Fulfilling Criteria<br>
+                Partial Marking for 1-5 Semicolons: 25 , 20 , 15 , 10 , 5</p>
+                <input type="file" name="question-3" accept=".c">
+            </div>
+          </fieldset>
+
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    <div class="rightside">
+      <div class="slide"> 
+        <p id="anticodingcountdown"></p>
+        <p><b>Info:</b></p>
+        <p>Only C Language is Allowed</p>
+        <p>- You can upload codes for individual questions<br>
+        - There is No Need to reupload submitted answers<br>
+        - However, you can reupload if there are changes</p>
+        <p><b>Note:</b></p>
+        <p> Do Not Use STDIN<br>
+        All inputs use <a style="text-decoration: none;" href="https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/">Command Line Argument</a><br>
+        Run as $./executable N</p>
+        <p><b>Hint:</b></p>
+        <p>int main(int argc,char* argv[]){<br>
+          int N=atoi(argv[1]);<br>
+        }//For taking input N from Command Line</p>
+      </div>
+    </div>
+    <script src="/static/countdown.js"></script>
+    </div>
+  </body>
+</html>

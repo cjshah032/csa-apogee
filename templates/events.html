@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="/static/styles.css" rel="stylesheet" type="text/css">
+    <title>APOGEE Events</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul>
+        <li>{{ name }}</li>
+        <li class="button"><a href="{{ url_for('logout') }}">Logout</a></li>
+      </ul>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+      
+    <div class="eventcontainer">
+      <div>
+        <a href="{{url_for('questions')}}"><img style="max-width: 300px; margin:auto;" src="/static/qrious.png"></a>
+        <p id="qriouscountdown"></p>
+      </div>
+      <div>
+        <a href="{{url_for('anticoding')}}"><img style="max-width: 300px; margin:auto;" src="/static/anticoding.png"></a>
+        <p id="anticodingcountdown"></p>
+      </div>
+      <div>
+        <a href="{{url_for('datageddon')}}"><img style="max-width: 300px; margin:auto;" src="/static/datageddon.png"></a>
+        <p id="datageddoncountdown"></p>
+      </div>
+    </div>
+    <script src="/static/countdown.js"></script>
+  </body>
+</html>

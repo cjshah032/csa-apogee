@@ -1,0 +1,13 @@
+flask
+flask-sqlalchemy
+flask-bcrypt
+flask-login
+flask-limiter
+flask-excel
+waitress
+gunicorn
+psycopg2
+psycopg2-binary
+connexion==2.6.0
+Werkzeug==0.16.1
+markupsafe
